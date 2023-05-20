@@ -1,15 +1,37 @@
 #pragma once
-#include <QtWidgets/QMainWindow>
-#include "ui_a8.h"
+#include <QWidget>
+#include "Service.h"
+#include <qlineedit.h>
+#include <qpushbutton.h>
+#include <qlistwidget.h>
+#include "Service.h"
+#include "UserService.h"
 
-class Gui : public QMainWindow
+class Gui : public QWidget
 {
-    Q_OBJECT
+private:
+	Service& service;
+	QListWidget* moviesListWidget;
+	QLineEdit* titleLineEdit;
+	QLineEdit* genreLineEdit;
+	QLineEdit* yearLineEdit;
+	QLineEdit* likesLineEdit;
+	QLineEdit* trailerLineEdit;
+	QPushButton* addButton;
+	QPushButton* deleteButton;
+	QPushButton* updateButton;
+	QPushButton* clearButton;
+
+	void initGui();
+	void populateList();
+	void connectSignalsAndSlots();
+	int getSelectedIndex();
+	void addMovie();
+	void deleteMovie();
+	void updateMovie();
+	void clearFields();
 
 public:
-    Gui(QWidget *parent = nullptr);
-    ~Gui();
-
-private:
-    Ui::a8Class ui;
+	Gui(Service& service);
+	~Gui() {};
 };

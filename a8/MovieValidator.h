@@ -24,5 +24,8 @@ public:
 	static void validate(const Movie& movie);
 	void validate_title(const std::string& title);
 	void validate_genre(const std::string& genre);
+	bool checkForDigits(std::string string);
+	void validate_year_of_release(const std::string& year_of_release);
+	void validate_likes(const std::string& likes);
 	
 };

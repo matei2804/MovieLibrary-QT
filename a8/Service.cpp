@@ -45,3 +45,11 @@ void Service::validate_title_Service(std::string& title) {
 void Service::validate_genre_Service(std::string& genre) {
 	this->validator.validate_genre(genre);
 }
+
+void Service::validate_year_of_release_Service(std::string& year_of_release) {
+	this->validator.validate_year_of_release(year_of_release);
+}
+
+void Service::validate_likes_Service(std::string& likes) {
+	this->validator.validate_likes(likes);
+}
