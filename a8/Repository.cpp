@@ -108,3 +108,35 @@ int Repository::find_movie_by_title_Repo(std::string title_to_find) {
 	}
 	return -1;
 }
+
+void Repository::increment_likes_Repo(std::string title)
+{
+	int index = this->find_movie_by_title_Repo(title);
+	if (index == -1) {
+		std::string error;
+		error += std::string("\nThe movie does not exist!\n");
+		if (!error.empty())
+			throw RepositoryException(error);
+	}
+	else
+	{
+		this->dynamicArray[index].number_of_likes_Setter(this->dynamicArray[index].number_of_likes_Getter() + 1);
+		this->write_Movie_to_file();
+	}
+}
+
+void Repository::decrement_likes_Repo(std::string title)
+{
+	int index = this->find_movie_by_title_Repo(title);
+	if (index == -1) {
+		std::string error;
+		error += std::string("\nThe movie does not exist!\n");
+		if (!error.empty())
+			throw RepositoryException(error);
+	}
+	else
+	{
+		this->dynamicArray[index].number_of_likes_Setter(this->dynamicArray[index].number_of_likes_Getter() - 1);
+		this->write_Movie_to_file();
+	}
+}

@@ -6,7 +6,7 @@ class UserService
 {
 private:
 	Repository& repo;
-	UserRepository* user_repo;
+	std::unique_ptr<UserRepository> user_repo;
 public:
 
 	UserService(Repository& repo, UserRepository* user_repo);
@@ -21,8 +21,8 @@ public:
 	int get_size_user_Service();
 
 	void add_movie_user_Service(Movie&);
-	int delete_movie_user_Service(std::string);
-	void repository_Type(std::string& type);
+	bool delete_movie_user_Service(std::string);
+	void repository_Type(const std::string& type);
 	std::string get_Filename_Service();
 
 };

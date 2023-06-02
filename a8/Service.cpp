@@ -53,3 +53,13 @@ void Service::validate_year_of_release_Service(std::string& year_of_release) {
 void Service::validate_likes_Service(std::string& likes) {
 	this->validator.validate_likes(likes);
 }
+
+void Service::increment_likes_Service(std::string title) 
+{
+	this->repo.increment_likes_Repo(title);
+}
+
+void Service::decrement_likes_Service(std::string title)
+{
+	this->repo.decrement_likes_Repo(title);
+}

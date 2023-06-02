@@ -27,4 +27,6 @@ public:
 	void add_movie_Repo(const Movie&);
 	void delete_movie_Repo(int);
 	void update_movie_Repo(int, const Movie&);
+	void increment_likes_Repo(std::string title);
+	void decrement_likes_Repo(std::string title);
 };

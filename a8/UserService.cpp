@@ -2,10 +2,11 @@
 #include "CSVWatchList.h"
 #include "RepositoryExceptions.h"
 #include "HTMLWatchList.h"
+#include <memory>
 
-UserService::UserService(Repository& repo, UserRepository* user_repo) : repo{ repo }
+UserService::UserService(Repository& repo, UserRepository* user_repo) : repo{ repo }, user_repo{ nullptr }
 {
-	this->user_repo = user_repo;
+	
 }
 
 UserService::UserService(Repository& repository) : repo{ repository }
@@ -15,7 +16,7 @@ UserService::UserService(Repository& repository) : repo{ repository }
 
 UserService::~UserService()
 {
-	delete this->user_repo;
+
 }
 
 std::vector<Movie>& UserService::get_all_user_Service()
@@ -33,7 +34,7 @@ void UserService::add_movie_user_Service(Movie& new_movie)
 	this->user_repo->add_movie_user_Repo(new_movie);
 }
 
-int UserService::delete_movie_user_Service(std::string delete_title) {
+bool UserService::delete_movie_user_Service(std::string delete_title) {
 
 	int array_length = this->get_size_user_Service();
 
@@ -45,26 +46,24 @@ int UserService::delete_movie_user_Service(std::string delete_title) {
 		{
 			int i = &movie - &movie_list[0];
 			this->user_repo->delete_movie_user_Repo(i);
-			return 1;
+			return true;
 		}
 	}
 
-	return -1;
+	return false;
 }
 
-void UserService::repository_Type(std::string& fileType)
+void UserService::repository_Type(const std::string& fileType)
 {
 	if (fileType == "csv") {
 		std::vector<Movie> userVector;
-		std::string userFile = R"(D:\Semestru 2\Object oriented programming\a7\CSVWatchList.csv)";
-		auto* repo = new CSVWatchList{ userVector, userFile };
-		this->user_repo = repo;
+		std::string userFile = R"(D:\Semestru 2\Object oriented programming\a8\a8\CSVWatchList.csv)";
+		this->user_repo = std::make_unique<CSVWatchList>(userVector, userFile);
 	}
 	else if (fileType == "html") {
 		std::vector<Movie> userVector;
-		std::string userFile = R"(D:\Semestru 2\Object oriented programming\a7\HTMLWatchlist.html)";
-		auto* repo = new HTMLWatchList{ userVector, userFile };
-		this->user_repo = repo;
+		std::string userFile = R"(D:\Semestru 2\Object oriented programming\a8\a8\HTMLWatchlist.html)";
+		this->user_repo = std::make_unique<HTMLWatchList>(userVector, userFile);
 	}
 	else {
 		std::string error;
@@ -73,6 +72,7 @@ void UserService::repository_Type(std::string& fileType)
 			throw FileException(error);
 	}
 }
+
 
 std::string UserService::get_Filename_Service()
 {
